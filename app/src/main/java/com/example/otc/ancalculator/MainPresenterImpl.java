@@ -5,19 +5,28 @@ import android.content.SharedPreferences;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 
-/**
- * Created by otc on 05.09.2017.
- */
 
-public class mainPresenterImpl
+class MainPresenterImpl
         extends MvpBasePresenter<MainView>
         implements MainPresenter {
 
-    final String SHARED_NAME = "calculator_shared";
-    Model model;
-    Context context;
+    private final String SHARED_NAME = "calculator_shared";
 
-    public mainPresenterImpl(Context context) {
+    private Model model;
+
+    public Model getModel() {
+        return this.model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
+    ;
+
+    private Context context;
+
+    MainPresenterImpl(Context context) {
         this.context = context;
         SharedPreferences sharedPreferences =
                 context.getSharedPreferences(SHARED_NAME, Context.MODE_PRIVATE);
@@ -102,15 +111,37 @@ public class mainPresenterImpl
         if (model.getAction() < 1 || model.getAction() > 4) {
             if (num == 10)
                 model.setFirst(".");
-            else
+            else if (num == 0) {
+                //Checking fot NotDoubleZero in the beginning of a string
+                if (!model.getFirst().equals("0")) {
+                    model.setFirst(String.valueOf(num));
+                } else {
+                    if (model.getFirst().length() > 1) {
+                        model.setFirst(String.valueOf(num));
+                    }
+                }
+            } else
                 model.setFirst(String.valueOf(num));
             //Action was set
         } else {
             if (num == 10)
                 model.setSecond(".");
-            else
+            else if (num == 0) {
+                //Checking fot NotDoubleZero in the beginning of a string
+                if (!model.getSecond().equals("0")) {
+                    model.setSecond(String.valueOf(num));
+                } else {
+                    if (model.getSecond().length() > 1) {
+                        model.setSecond(String.valueOf(num));
+                    }
+                }
+            } else
                 model.setSecond(String.valueOf(num));
         }
+    }
+
+    private boolean checkNotDoubleZeroInBeginning(String textNumber) {
+        return !textNumber.equals("0");
     }
 
     private void buttonActionTreatment(int num) {
@@ -123,8 +154,7 @@ public class mainPresenterImpl
 //            model.clear();
 //            model.setFirst(temp);
 //        } else
-        if (!model.getTableInfo().equals("")
-                && model.getFirst().equals("")) {
+        if (!model.getTableInfo().equals("") && model.getFirst().equals("")) {
             model.setFirst(model.getTableInfo());
         }
 
@@ -143,11 +173,7 @@ public class mainPresenterImpl
                 model.setAction(4);
                 break;
             case 5:
-                model.compute(
-                        model.getFirst(),
-                        model.getSecond(),
-                        model.getAction(),
-                        true);
+                model.compute(true);
 //                getView().showTable(model.getTableInfo());
                 break;
             case 10:

@@ -1,5 +1,6 @@
 package com.example.otc.ancalculator;
 
+import com.hannesdorfmann.mosby3.PresenterManager;
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
 
 /**
@@ -14,4 +15,8 @@ public interface MainPresenter
 
     //Showing a result of action
     void showResult(String text);
+
+    //Work with the link to a model instance from itself
+    Model getModel();
+    void setModel(Model model);
 }

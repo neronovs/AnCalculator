@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AnCalculator</string>
+    <string name="test_text_sample">01234567.89</string>
 </resources>

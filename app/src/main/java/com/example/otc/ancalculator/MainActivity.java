@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.otc.ancalculator.databinding.ActivityMainBinding;
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 
@@ -26,7 +28,7 @@ public class MainActivity
     @NonNull
     @Override
     public MainPresenter createPresenter() {
-        return new mainPresenterImpl(this);
+        return new MainPresenterImpl(this);
     }
 
     @Override
@@ -36,7 +38,12 @@ public class MainActivity
 
     @Override
     public void onClick(View view) {
-//        presenter.buttonPressed((String) ((AppCompatButton) view).getText());
+        //Pressing animation
+        YoYo.with(Techniques.Pulse)
+                .duration(300)
+                .repeat(0)
+                .playOn(view);
+
         presenter.buttonPressed(view.getId());
     }
 

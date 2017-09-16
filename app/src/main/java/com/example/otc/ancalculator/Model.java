@@ -1,5 +1,7 @@
 package com.example.otc.ancalculator;
 
+import android.content.SharedPreferences;
+
 /**
  * Created by otc on 05.09.2017.
  */
@@ -10,17 +12,20 @@ public interface Model {
     public void setModel(Computer model);
 
     //Calculation of the numbers
-    void compute(String first, String second, int action, boolean equalPressed);
+    String compute(boolean equalPressed);
 
     //Putting to or Getting from a digit memory
-    double memory(int action); //1 - add, 2 - remove, 3 - read, 4 - clean
+    String memory(int action); //1 - add, 2 - remove, 3 - read, 4 - clean
 
     //Clear fields
     void clear();
 
     //Working with table information
-    void saveTableInfo(String tableInfo);
+    void setTableInfo(String tableInfo);
     String getTableInfo();
+
+    //Shared Preferences
+    void setSharedPreferences(SharedPreferences sharedPreferences);
 
     //Working with the first and the second numbers
     void setFirst(String first);

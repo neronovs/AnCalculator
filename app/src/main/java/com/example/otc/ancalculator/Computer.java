@@ -2,67 +2,78 @@ package com.example.otc.ancalculator;
 
 import android.content.SharedPreferences;
 
-/**
- * Created by otc on 05.09.2017.
- */
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
-public class Computer
-        implements Model {
+import android.util.Log;
 
+
+class Computer implements Model {
+
+    private final String TAG = getClass().getName();
     private Computer model;
+
     public void setModel(Computer model) {
         if (this.model == null)
             this.model = (Computer) model;
     }
 
-    private final String MEMORY_KEY = "memory_key";
+    private final String MEMORY_KEY = "calculator_shared";
 
     private SharedPreferences sharedPreferences;
-//    public void setSharedPreferences(SharedPreferences sharedPreferences) {
-//        this.sharedPreferences = sharedPreferences;
-//    }
+
+    public void setSharedPreferences(SharedPreferences sharedPreferences) {
+        this.sharedPreferences = sharedPreferences;
+    }
 
     private String tableInfo = "";
     private int action = 0; //1 - plus, 2 - minus, 3 - multiply, 4 - divide, 5 - dot
     private String first = "";
     private String second = "";
 
-//    public static Computer getInstance() {
+    //    public static Computer getInstance() {
 //        return computerInstance;
 //    }
-    public Computer(SharedPreferences sharedPreferences) {
+    Computer(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
     }
 
     @Override
-    public void compute(String first, String second, int action, boolean equalPressed) {
+    public String compute(boolean equalPressed) {
+        BigDecimal res = BigDecimal.ZERO;
+
         //No action no action
         if (model.action != 0 && !model.getSecond().equals("")) {
 
-            double res = 0;
             String error = "";
-            switch (action) {
+            switch (model.action) {
                 case 1:
-                    res = Double.parseDouble(first) + Double.parseDouble(second);
+                    res = BigDecimal.valueOf(Double.parseDouble(model.first)).add(
+                            BigDecimal.valueOf(Double.parseDouble(model.second)));
                     break;
                 case 2:
-                    res = Double.parseDouble(first) - Double.parseDouble(second);
+                    res = BigDecimal.valueOf(Double.parseDouble(model.first)).subtract(
+                            BigDecimal.valueOf(Double.parseDouble(model.second)));
                     break;
                 case 3:
-                    res = Double.parseDouble(first) * Double.parseDouble(second);
+                    res = BigDecimal.valueOf(Double.parseDouble(model.first)).multiply(
+                            BigDecimal.valueOf(Double.parseDouble(model.second)));
                     break;
                 case 4:
                     if (second.equals("0"))
                         error = "Divide by 0!";
                     else
-                        res = Double.parseDouble(first) / Double.parseDouble(second);
+                        res = BigDecimal.valueOf(Double.parseDouble(model.first)).divide(
+                                BigDecimal.valueOf(Double.parseDouble(model.second))
+                                , RoundingMode.HALF_UP);
                     break;
             }
 
             if (error.equals("")) {
-                int resInteger = Integer.parseInt(String.valueOf(res).substring(0, String.valueOf(res).indexOf(".")));
-                if (res - resInteger == 0.0)
-                    model.tableInfo = String.valueOf(resInteger);
+                String textFromRes = String.valueOf(res);
+                if (textFromRes.contains(".") &&
+                        textFromRes.substring(textFromRes.indexOf(".")+ 1).equals("0") )
+                    model.tableInfo = textFromRes.substring(0, textFromRes.indexOf("."));
                 else
                     model.tableInfo = String.valueOf(res);
             } else {
@@ -78,28 +89,47 @@ public class Computer
 
             equalPressed = false;
         }
+        return model.tableInfo;
     }
 
     //region Memory block
     @Override
-    public double memory(int action) {
-        double mem = 0;
+    public String memory(int memoryAction) {
+        String mem = "";
         //1 - add, 2 - remove, 3 - read, 4 - clean
-        switch (action) {
+        switch (memoryAction) {
             case 1:
-                mem = loadPrefs() + Double.parseDouble(model.tableInfo);
+                try {
+                    mem = String.valueOf(
+                            BigDecimal.valueOf(Double.parseDouble(loadPrefs())).add(
+                                    BigDecimal.valueOf(Double.parseDouble(model.tableInfo))));
+                } catch (NumberFormatException ex) {
+                    Log.e(TAG, ": memory() error in adding in memory. " + ex);
+                    mem = "0";
+                }
                 savePrefs(mem);
                 break;
             case 2:
-                mem = loadPrefs() - Double.parseDouble(model.tableInfo);
-                savePrefs(mem);
+                try {
+                    mem = String.valueOf(
+                            BigDecimal.valueOf(Double.parseDouble(loadPrefs())).subtract(
+                                    BigDecimal.valueOf(Double.parseDouble(model.tableInfo))));
+                    savePrefs(mem);
+                } catch (NumberFormatException ex) {
+                    Log.e(TAG, ": memory() error in removing in memory. " + ex);
+                }
                 break;
             case 3:
                 mem = loadPrefs();
-                model.tableInfo = String.valueOf(mem);
+                if (model.action == 0)
+                    model.first = mem;
+                else
+                    model.second = mem;
+
+                model.tableInfo = mem;
                 break;
             case 4:
-                savePrefs(0);
+                savePrefs("0");
                 break;
         }
         return mem;
@@ -113,21 +143,27 @@ public class Computer
         model.tableInfo = "";
     }
 
-    private void savePrefs(double digit) {
-        sharedPreferences
+    private void savePrefs(String digit) {
+        model.sharedPreferences
                 .edit()
-                .putFloat(MEMORY_KEY, (float) digit)
+                .putString(MEMORY_KEY, digit)
                 .apply();
     }
 
-    private double loadPrefs() {
-        return sharedPreferences.getFloat(MEMORY_KEY, 0);
+    private String loadPrefs() {
+        try {
+            return model.sharedPreferences.getString(MEMORY_KEY, "0");
+        } catch (Exception ex) {
+//            Log.e(TAG, ": loadPrefs() error in sharedPreferences.getString(MEMORY_KEY, \"0\"). " + ex);
+        }
+
+        return "0";
     }
     //endregion
 
     //region Working with table information
     @Override
-    public void saveTableInfo(String tableInfo) {
+    public void setTableInfo(String tableInfo) {
         model.tableInfo = tableInfo;
     }
 
@@ -178,10 +214,11 @@ public class Computer
     @Override
     public void setAction(int action) {
         if (!model.first.equals("") && !model.second.equals(""))
-            compute(model.first, model.second, model.action, false);
+            compute(false);
 
         model.action = action;
     }
+
     @Override
     public int getAction() {
         return model.action;
