@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@mipmap/backgroun_metal_lines"
@@ -14,37 +14,46 @@
 
         <TextView
             android:id="@+id/mainView_table"
-            android:layout_width="329dp"
-            android:layout_height="60dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/object_back"
             android:maxLength="12"
             android:maxLines="1"
             android:text=""
             android:textSize="50sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintBottom_toTopOf="@+id/tableLayout_functionalBtns"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.055" />
+            app:layout_constraintVertical_weight="1.2" />
 
         <TableLayout
             android:id="@+id/tableLayout_functionalBtns"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/tableLayout_buttons"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainView_table"
+            app:layout_constraintVertical_weight="1">
 
-            <TableRow>
+            <TableRow android:orientation="vertical">
 
                 <Button
                     android:id="@+id/buttonC"
-                    android:layout_width="65dp"
-                    android:layout_height="60dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="C"
                     android:textColor="@color/DarkKhaki"
@@ -52,8 +61,9 @@
 
                 <Button
                     android:id="@+id/buttonMPlus"
-                    android:layout_width="65dp"
-                    android:layout_height="60dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="M+"
                     android:textColor="@color/DarkKhaki"
@@ -61,8 +71,9 @@
 
                 <Button
                     android:id="@+id/buttonMMinus"
-                    android:layout_width="65dp"
-                    android:layout_height="60dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="M-"
                     android:textColor="@color/DarkKhaki"
@@ -70,8 +81,9 @@
 
                 <Button
                     android:id="@+id/buttonMR"
-                    android:layout_width="65dp"
-                    android:layout_height="60dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="MR"
                     android:textColor="@color/DarkKhaki"
@@ -79,8 +91,9 @@
 
                 <Button
                     android:id="@+id/buttonMC"
-                    android:layout_width="65dp"
-                    android:layout_height="60dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="MC"
                     android:textColor="@color/DarkKhaki"
@@ -90,19 +103,29 @@
 
         <TableLayout
             android:id="@+id/tableLayout_buttons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            android:layout_marginBottom="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout_functionalBtns"
+            app:layout_constraintVertical_weight="5">
 
-            <TableRow>
+            <TableRow
+
+                android:layout_weight="1">
 
                 <Button
                     android:id="@+id/button7"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="7"
                     android:textColor="@color/Wheat"
@@ -110,8 +133,10 @@
 
                 <Button
                     android:id="@+id/button8"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="8"
                     android:textColor="@color/Wheat"
@@ -119,8 +144,10 @@
 
                 <Button
                     android:id="@+id/button9"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="9"
                     android:textColor="@color/Wheat"
@@ -128,20 +155,24 @@
 
                 <Button
                     android:id="@+id/buttonDivide"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="÷"
                     android:textColor="@color/Wheat"
                     android:textSize="40sp" />
             </TableRow>
 
-            <TableRow>
+            <TableRow android:layout_weight="1">
 
                 <Button
                     android:id="@+id/button4"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="4"
                     android:textColor="@color/Wheat"
@@ -149,8 +180,10 @@
 
                 <Button
                     android:id="@+id/button5"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="5"
                     android:textColor="@color/Wheat"
@@ -158,8 +191,10 @@
 
                 <Button
                     android:id="@+id/button6"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="6"
                     android:textColor="@color/Wheat"
@@ -167,20 +202,24 @@
 
                 <Button
                     android:id="@+id/buttonMultiply"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="×"
                     android:textColor="@color/Wheat"
                     android:textSize="40sp" />
             </TableRow>
 
-            <TableRow>
+            <TableRow android:layout_weight="1">
 
                 <Button
                     android:id="@+id/button1"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="1"
                     android:textColor="@color/Wheat"
@@ -188,8 +227,10 @@
 
                 <Button
                     android:id="@+id/button2"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="2"
                     android:textColor="@color/Wheat"
@@ -197,8 +238,10 @@
 
                 <Button
                     android:id="@+id/button3"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="3"
                     android:textColor="@color/Wheat"
@@ -206,20 +249,24 @@
 
                 <Button
                     android:id="@+id/buttonMinus"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="-"
                     android:textColor="@color/Wheat"
                     android:textSize="40sp" />
             </TableRow>
 
-            <TableRow>
+            <TableRow android:layout_weight="1">
 
                 <Button
                     android:id="@+id/button0"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="0"
                     android:textColor="@color/Wheat"
@@ -227,8 +274,10 @@
 
                 <Button
                     android:id="@+id/buttonDot"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="."
                     android:textColor="@color/Wheat"
@@ -236,8 +285,10 @@
 
                 <Button
                     android:id="@+id/buttonEqual"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="="
                     android:textColor="@color/Wheat"
@@ -245,8 +296,10 @@
 
                 <Button
                     android:id="@+id/buttonPlus"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@mipmap/button_gray"
                     android:text="+"
                     android:textColor="@color/Wheat"
@@ -255,6 +308,6 @@
 
         </TableLayout>
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </layout>

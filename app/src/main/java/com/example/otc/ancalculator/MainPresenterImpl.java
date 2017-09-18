@@ -22,8 +22,6 @@ class MainPresenterImpl
         this.model = model;
     }
 
-    ;
-
     private Context context;
 
     MainPresenterImpl(Context context) {
@@ -109,6 +107,7 @@ class MainPresenterImpl
     private void buttonNumberTreatment(int num) {
         //In case that action was not set
         if (model.getAction() < 1 || model.getAction() > 4) {
+            model.setCurrentFieldFirst(true);
             if (num == 10)
                 model.setFirst(".");
             else if (num == 0) {
@@ -124,7 +123,11 @@ class MainPresenterImpl
                 model.setFirst(String.valueOf(num));
             //Action was set
         } else {
+            model.setCurrentFieldFirst(false);
             if (num == 10)
+                if (model.getSecond().equals(""))
+                    model.setSecond("0.");
+            else
                 model.setSecond(".");
             else if (num == 0) {
                 //Checking fot NotDoubleZero in the beginning of a string
@@ -140,20 +143,8 @@ class MainPresenterImpl
         }
     }
 
-    private boolean checkNotDoubleZeroInBeginning(String textNumber) {
-        return !textNumber.equals("0");
-    }
-
     private void buttonActionTreatment(int num) {
         //If we have a result and press an action btn than the result will be a FirstNumber
-//        if (!model.getTableInfo().equals("")
-//                && !model.getFirst().equals("")
-//                && !model.getSecond().equals("")
-//                && model.getAction()==0) {
-//            String temp = model.getTableInfo();
-//            model.clear();
-//            model.setFirst(temp);
-//        } else
         if (!model.getTableInfo().equals("") && model.getFirst().equals("")) {
             model.setFirst(model.getTableInfo());
         }
@@ -164,7 +155,19 @@ class MainPresenterImpl
                 model.setAction(1);
                 break;
             case 2:
-                model.setAction(2);
+                if (model.isCurrentFieldFirst()) {
+                    if (model.getFirst().equals("0")) {
+                        model.clearField(model.isCurrentFieldFirst());
+                        model.setFirst("-");
+                    } else
+                        model.setAction(2);
+                } else {
+                    if (model.getSecond().equals("0")) {
+                        model.clearField(model.isCurrentFieldFirst());
+                        model.setSecond("-");
+                    } else
+                        model.setAction(2);
+                }
                 break;
             case 3:
                 model.setAction(3);

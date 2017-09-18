@@ -35,4 +35,8 @@ public interface Model {
     //Working with an action
     void setAction(int act);
     int getAction();
-}
+    //To clear a field from 0 when it was pressed "-"
+    void clearField(boolean firstField);
+    boolean isCurrentFieldFirst();
+    void setCurrentFieldFirst(boolean currentFieldFirst);
+    }

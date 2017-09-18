@@ -115,12 +115,12 @@ public class ComputerTest {
         assertEquals("", model.getFirst());
         assertEquals("", model.getSecond());
         assertEquals(0, model.getAction());
-        assertEquals("", model.getTableInfo());
+        assertEquals("0", model.getTableInfo());
     }
 
     @Test
     public void setTableInfo() throws Exception {
-        assertTrue(model.getTableInfo().isEmpty());
+        assertTrue(model.getTableInfo().equals("0"));
         model.setTableInfo(String.valueOf(R.string.test_text_sample));
         assertFalse(model.getTableInfo().isEmpty());
         assertEquals(String.valueOf(R.string.test_text_sample), model.getTableInfo());
@@ -130,7 +130,7 @@ public class ComputerTest {
     public void getTableInfo() throws Exception {
         String example = "-1234567890";
         assertNotNull(model.getTableInfo());
-        assertTrue(model.getTableInfo().isEmpty());
+        assertTrue(model.getTableInfo().equals("0"));
         model.setTableInfo(example);
         assertEquals(example, model.getTableInfo());
     }

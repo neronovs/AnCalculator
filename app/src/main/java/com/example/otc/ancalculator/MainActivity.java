@@ -23,6 +23,7 @@ public class MainActivity
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setOnClicker();
+        presenter.showResult("0");
     }
 
     @NonNull
