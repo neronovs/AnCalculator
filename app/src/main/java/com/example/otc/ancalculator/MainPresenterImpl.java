@@ -12,6 +12,12 @@ class MainPresenterImpl
 
     private final String SHARED_NAME = "calculator_shared";
 
+    private final String MAINVIEW_TABLE = "mainView_table";
+    private final String MAINVIEW_MEMO = "mainView_memo";
+    private final String MAINVIEW_ACTION = "mainView_action";
+    private final String MAINVIEW_FIRSTNUMBER = "mainView_firstNumber";
+    private final String MAINVIEW_SECONDNUMBER = "mainView_secondNumber";
+
     private Model model;
 
     public Model getModel() {
@@ -44,7 +50,13 @@ class MainPresenterImpl
                 model.memory(2);
                 break;
             case R.id.buttonMR:
-                model.memory(3);
+                if (model.getAction() == 0) {
+                    model.clearField(true);
+                    model.setFirst(model.memory(3));
+                } else {
+                    model.clearField(false);
+                    model.setSecond(model.memory(3));
+                }
                 break;
             case R.id.buttonMC:
                 model.memory(4);
@@ -101,7 +113,7 @@ class MainPresenterImpl
                 model.clear();
                 break;
         }
-        getView().showTable(model.getTableInfo());
+        showResult(model.getTableInfo());
     }
 
     private void buttonNumberTreatment(int num) {
@@ -109,7 +121,12 @@ class MainPresenterImpl
         if (model.getAction() < 1 || model.getAction() > 4) {
             model.setCurrentFieldFirst(true);
             if (num == 10)
-                model.setFirst(".");
+                //If after "-" is going "." than put "0" after "-"
+                if (model.getFirst().equals("-")) {
+                    model.setFirst("0.");
+                } else {
+                    model.setFirst(".");
+                }
             else if (num == 0) {
                 //Checking fot NotDoubleZero in the beginning of a string
                 if (!model.getFirst().equals("0")) {
@@ -127,8 +144,8 @@ class MainPresenterImpl
             if (num == 10)
                 if (model.getSecond().equals(""))
                     model.setSecond("0.");
-            else
-                model.setSecond(".");
+                else
+                    model.setSecond(".");
             else if (num == 0) {
                 //Checking fot NotDoubleZero in the beginning of a string
                 if (!model.getSecond().equals("0")) {
@@ -177,17 +194,45 @@ class MainPresenterImpl
                 break;
             case 5:
                 model.compute(true);
-//                getView().showTable(model.getTableInfo());
+//                showResult(model.getTableInfo());
                 break;
             case 10:
                 buttonNumberTreatment(10);
                 break;
         }
-        getView().showTable(model.getTableInfo());
+        showResult(model.getTableInfo());
     }
 
     @Override
     public void showResult(String text) {
-        getView().showTable(text);
+        getView().showTable(MAINVIEW_TABLE, text);
+
+        getView().showTable(MAINVIEW_FIRSTNUMBER, model.getFirst());
+
+        //1 - plus, 2 - minus, 3 - multiply, 4 - divide, 5 - dot
+        switch (model.getAction()) {
+            case 0:
+                getView().showTable(MAINVIEW_ACTION, "");
+                break;
+            case 1:
+                getView().showTable(MAINVIEW_ACTION, " + ");
+                break;
+            case 2:
+                getView().showTable(MAINVIEW_ACTION, " - ");
+                break;
+            case 3:
+                getView().showTable(MAINVIEW_ACTION, " × ");
+                break;
+            case 4:
+                getView().showTable(MAINVIEW_ACTION, " ÷ ");
+                break;
+        }
+
+        getView().showTable(MAINVIEW_SECONDNUMBER, model.getSecond());
+
+        if (model.memory(3).equals("0"))
+            getView().showTable(MAINVIEW_MEMO, "invisible");
+        else
+            getView().showTable(MAINVIEW_MEMO, "visible");
     }
 }

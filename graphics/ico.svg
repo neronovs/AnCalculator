@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2017 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="210mm" height="297mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 21000 29700"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <font id="FontID0" horiz-adv-x="667" font-variant="normal" class="str1" style="fill-rule:nonzero" font-style="normal" font-weight="400">
+	<font-face 
+		font-family="Arial">
+		<font-face-src>
+			<font-face-name name="Arial"/>
+		</font-face-src>
+	</font-face>
+   <missing-glyph><path d="M0 0z"/></missing-glyph>
+   <glyph unicode="2" horiz-adv-x="556" d="M502.992 83.9945l0 -83.9945 -473.987 0c-0.662755,21.1692 2.82646,41.5002 10.3312,61.1684 12.1635,32.1631 31.6563,63.9949 58.4979,95.1638 26.8416,31.169 65.1644,67.1722 115.008,108.01 77.4839,63.8194 130.153,114.325 157.658,151.654 27.6603,37.3287 41.5002,72.6691 41.5002,106.002 0,34.8336 -12.4949,64.1703 -37.5041,88.1659 -24.9898,23.8397 -57.6597,35.8278 -97.8344,35.8278 -42.4943,0 -76.4897,-12.6508 -101.986,-37.9915 -25.5161,-25.1652 -38.3423,-60.1743 -38.6737,-105.008l-89.9982 9.00567c6.15972,67.3281 29.4926,118.672 69.8232,153.993 40.506,35.3404 94.6765,53.0009 162.843,53.0009 68.6731,0 123.155,-18.986 163.155,-57.1529 40.1747,-38.1669 60.1743,-85.5149 60.1743,-141.83 0,-28.6739 -5.82835,-56.841 -17.6605,-84.5013 -11.6762,-27.8357 -31.169,-57.0164 -58.3419,-87.6786 -27.3289,-30.4867 -72.4937,-72.6691 -135.494,-126.001 -52.8255,-44.3266 -86.8404,-74.326 -101.83,-90.1542 -15.0095,-15.8476 -27.3289,-31.6758 -37.1728,-47.6794l351.494 0z"/>
+   <glyph unicode="=" horiz-adv-x="584" d="M528.001 421.005l-471.999 0 0 81.9867 471.999 0 0 -81.9867zm0 -217.013l-471.999 0 0 82.0062 471.999 0 0 -82.0062z"/>
+   <glyph unicode="1" horiz-adv-x="556" d="M372.001 0l-88.01 0 0 560.34c-21.1497,-20.331 -48.9854,-40.506 -83.3317,-60.6811 -34.3268,-20.1556 -65.3204,-35.3209 -92.6493,-45.3208l0 84.9886c49.1608,23.0015 92.1619,51.0127 128.984,84.014 36.8414,32.8259 63.0007,64.6576 78.3416,95.6512l56.6656 0 0 -718.992z"/>
+   <glyph unicode="+" horiz-adv-x="584" d="M251.009 116.002l0 196 -195.006 0 0 82.0062 195.006 0 0 194.986 83.0003 0 0 -194.986 194.986 0 0 -82.0062 -194.986 0 0 -196 -83.0003 0z"/>
+  </font>
+  <style type="text/css">
+   <![CDATA[
+    @font-face { font-family:"Arial";font-variant:normal;font-style:normal;font-weight:normal;src:url("#FontID0") format(svg)}
+    .str1 {stroke-width:14.85}
+    .str0 {stroke:#666666;stroke-width:20}
+    .str2 {stroke:#FFF982;stroke-width:7.62}
+    .fil0 {fill:none}
+    .fil3 {fill:gray}
+    .fil4 {fill:#FFF982}
+    .fil1 {fill:#E6E6E6;fill-opacity:0.501961}
+    .fil2 {fill:#FDFF96;fill-opacity:0.501961}
+    .fnt0 {font-weight:normal;font-size:513.01px;font-family:'Arial'}
+   ]]>
+  </style>
+    <clipPath id="id0">
+     <path d="M3828 6263l1021 0c550,0 1000,450 1000,1000l0 1021c0,550 -450,1000 -1000,1000l-1021 0c-550,0 -1000,-450 -1000,-1000l0 -1021c0,-550 450,-1000 1000,-1000z"/>
+    </clipPath>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_2433642758224">
+   <g style="clip-path:url(#id0)">
+    <image x="2759" y="5041" width="3193" height="5677" xlink:href="ico_Images\ico_ImgID1.png"/>
+   </g>
+   <rect class="fil0 str0" x="3347" y="7554" width="622" height="622" rx="206" ry="206"/>
+   <path class="fil1" d="M3560 6778l1556 0c117,0 213,96 213,213l0 217c0,117 -96,213 -213,213l-1556 0c-117,0 -213,-96 -213,-213l0 -217c0,-117 96,-213 213,-213z"/>
+   <rect class="fil0 str0" x="4031" y="7554" width="622" height="622" rx="206" ry="206"/>
+   <rect class="fil0 str0" x="4707" y="7554" width="622" height="622" rx="206" ry="206"/>
+   <path class="fil2" d="M3553 8225l210 0c113,0 206,93 206,206l0 210c0,113 -93,206 -206,206l-210 0c-113,0 -206,-93 -206,-206l0 -210c0,-113 93,-206 206,-206z"/>
+   <path class="fil1" d="M4237 8225l210 0c113,0 206,93 206,206l0 210c0,113 -93,206 -206,206l-210 0c-113,0 -206,-93 -206,-206l0 -210c0,-113 93,-206 206,-206z"/>
+   <rect class="fil0 str0" x="4707" y="8225" width="622" height="622" rx="206" ry="206"/>
+   <text x="3535" y="8049"  class="fil3 str2 fnt0">1</text>
+   <text x="4219" y="8049"  class="fil3 str2 fnt0">2</text>
+   <text x="4868" y="8046"  class="fil4 fnt0">+</text>
+   <text x="4868" y="8717"  class="fil4 fnt0">=</text>
+  </g>
+ </g>
+</svg>

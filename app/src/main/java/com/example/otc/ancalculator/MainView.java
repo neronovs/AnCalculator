@@ -10,6 +10,6 @@ public interface MainView
         extends MvpView {
 
     //Show an got info on the table
-    void showTable(String text);
+    void showTable(String view, String text);
 
 }

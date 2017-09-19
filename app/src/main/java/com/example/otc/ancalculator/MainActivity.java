@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.otc.ancalculator.databinding.ActivityMainBinding;
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity
         extends MvpActivity<MainView, MainPresenter>
@@ -19,6 +22,7 @@ public class MainActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
 //        setContentView(R.layout.activity_main);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
@@ -33,8 +37,27 @@ public class MainActivity
     }
 
     @Override
-    public void showTable(String text) {
-        binding.mainViewTable.setText(text);
+    public void showTable(String view, String text) {
+        switch (view) {
+            case "mainView_table":
+                binding.mainViewTable.setText(text);
+                break;
+            case "mainView_action":
+                binding.mainViewAction.setText(text);
+                break;
+            case "mainView_firstNumber":
+                binding.mainViewFirstNumber.setText(text);
+                break;
+            case "mainView_secondNumber":
+                binding.mainViewSecondNumber.setText(text);
+                break;
+            case "mainView_memo":
+                if (text.equals("visible"))
+                    binding.mainViewMemo.setVisibility(View.VISIBLE);
+                else
+                    binding.mainViewMemo.setVisibility(View.INVISIBLE);
+                break;
+        }
     }
 
     @Override

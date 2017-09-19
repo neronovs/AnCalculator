@@ -147,12 +147,12 @@ class Computer implements Model {
                 break;
             case 3:
                 mem = makePropriateTextForNumberWithPoint(loadPrefs());
-                if (model.action == 0)
-                    model.first = mem;
-                else
-                    model.second = mem;
-
-                model.tableInfo = mem;
+//                if (model.action == 0)
+//                    model.first = mem;
+//                else
+//                    model.second = mem;
+//
+//                model.tableInfo = mem;
                 break;
             case 4:
                 savePrefs("0");

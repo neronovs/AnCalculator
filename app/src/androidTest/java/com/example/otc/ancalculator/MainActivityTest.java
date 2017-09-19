@@ -153,7 +153,7 @@ public class MainActivityTest {
     @Test
     @UiThreadTest
     public void showTable() throws Exception {
-        mActivity.showTable(String.valueOf(R.string.test_text_sample));
+        mActivity.showTable("mainView_table", String.valueOf(R.string.test_text_sample));
         view = mActivity.findViewById(R.id.mainView_table);
         tv = (TextView) view;
         tv.setText(R.string.test_text_sample);

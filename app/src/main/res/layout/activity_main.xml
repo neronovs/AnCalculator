@@ -12,8 +12,8 @@
         android:paddingTop="15dp"
         tools:context="com.example.otc.ancalculator.MainActivity">
 
-        <TextView
-            android:id="@+id/mainView_table"
+        <FrameLayout
+            android:id="@+id/mainView_tableBackground"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_gravity="center"
@@ -22,15 +22,102 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/object_back"
-            android:maxLength="12"
-            android:maxLines="1"
-            android:text=""
-            android:textSize="50sp"
             app:layout_constraintBottom_toTopOf="@+id/tableLayout_functionalBtns"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_weight="1.2" />
+            app:layout_constraintVertical_weight="1.2">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:id="@+id/mainView_table"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:maxLength="12"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textSize="50sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mainView_actionBar"
+                    app:layout_constraintVertical_weight="5" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/mainView_actionBar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@id/mainView_table"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="1">
+
+
+                    <TextView
+                        android:id="@+id/mainView_memo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:text="M"
+                        android:visibility="visible"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_editor_absoluteY="0dp" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLength="12"
+                        android:maxLines="1"
+                        android:orientation="horizontal"
+                        android:textSize="50sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_editor_absoluteY="0dp">
+
+                        <TextView
+                            android:id="@+id/mainView_firstNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="3dp" />
+
+                        <TextView
+                            android:id="@+id/mainView_action"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="3dp" />
+
+                        <TextView
+                            android:id="@+id/mainView_secondNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="3dp" />
+
+                        <!--<TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="3dp"
+                            android:text="="
+                            android:visibility="invisible" />-->
+                    </LinearLayout>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </FrameLayout>
 
         <TableLayout
             android:id="@+id/tableLayout_functionalBtns"
@@ -44,7 +131,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tableLayout_buttons"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mainView_table"
+            app:layout_constraintTop_toBottomOf="@+id/mainView_tableBackground"
             app:layout_constraintVertical_weight="1">
 
             <TableRow android:orientation="vertical">
