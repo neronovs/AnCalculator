@@ -1,11 +1,9 @@
-package com.example.otc.ancalculator;
+package ru.narod.nod.ancalculator;
 
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 import android.widget.TextView;
-
-import com.example.otc.ancalculator.databinding.ActivityMainBinding;
 
 import org.junit.After;
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package com.example.otc.ancalculator;
+package ru.narod.nod.ancalculator;
 
 import android.content.SharedPreferences;
 
@@ -8,7 +8,7 @@ import java.math.RoundingMode;
 import android.util.Log;
 
 
-class Computer implements Model {
+class Computer implements ru.narod.nod.ancalculator.Model {
 
     private final String TAG = getClass().getName();
     private Computer model;
@@ -49,6 +49,8 @@ class Computer implements Model {
     public String compute(boolean equalPressed) {
         BigDecimal res = BigDecimal.ZERO;
 
+        isCurrentFieldFirst = true; //now there will be called the fist number again
+
         //No action no action
         if (model.action != 0 && !model.getSecond().equals("")) {
 
@@ -72,7 +74,7 @@ class Computer implements Model {
                     else
                         res = BigDecimal.valueOf(Double.parseDouble(model.first)).divide(
                                 BigDecimal.valueOf(Double.parseDouble(model.second))
-                                , RoundingMode.HALF_UP);
+                                , 30, RoundingMode.CEILING);
                     break;
             }
 
@@ -99,6 +101,13 @@ class Computer implements Model {
             equalPressed = false;
         }
         return model.tableInfo;
+    }
+
+    @Override
+    public String calculatePercentage(String stringNumber) {
+        return makePropriateTextForNumberWithPoint(
+                BigDecimal.valueOf(Double.parseDouble(stringNumber))
+                .multiply(BigDecimal.valueOf(0.01d)).toString());
     }
 
     private String makePropriateTextForNumberWithPoint(String text) {
@@ -200,12 +209,12 @@ class Computer implements Model {
     }
     //endregion
 
+    //region Working with the first and the second numbers
     @Override
     public String getFirst() {
         return model.first;
     }
 
-    //region Working with the first and the second numbers
     @Override
     public void setFirst(String first) {
         if (first.equals(".")) {
@@ -240,6 +249,8 @@ class Computer implements Model {
     //1 - plus, 2 - minus, 3 - multiply, 4 - divide
     @Override
     public void setAction(int action) {
+        isCurrentFieldFirst = false;
+
         if (!model.first.equals("") && !model.second.equals(""))
             compute(false);
 
@@ -253,7 +264,7 @@ class Computer implements Model {
     //endregion
 
     //clear field
-    public void clearField(boolean firstField) {
+    public void clearFirstField(boolean firstField) {
         if (firstField)
             model.first = "";
         else

@@ -1,6 +1,5 @@
-package com.example.otc.ancalculator;
+package ru.narod.nod.ancalculator;
 
-import com.hannesdorfmann.mosby3.PresenterManager;
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
 
 /**
@@ -8,7 +7,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
  */
 
 public interface MainPresenter
-        extends MvpPresenter<MainView> {
+        extends MvpPresenter<ru.narod.nod.ancalculator.MainView> {
 
     //Treatment of a button pressing
     void buttonPressed(int btn);
@@ -17,6 +16,6 @@ public interface MainPresenter
     void showResult(String text);
 
     //Work with the link to a model instance from itself
-    Model getModel();
-    void setModel(Model model);
+    ru.narod.nod.ancalculator.Model getModel();
+    void setModel(ru.narod.nod.ancalculator.Model model);
 }

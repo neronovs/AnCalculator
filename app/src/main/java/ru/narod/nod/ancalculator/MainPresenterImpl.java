@@ -1,4 +1,4 @@
-package com.example.otc.ancalculator;
+package ru.narod.nod.ancalculator;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,7 +7,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 
 
 class MainPresenterImpl
-        extends MvpBasePresenter<MainView>
+        extends MvpBasePresenter<ru.narod.nod.ancalculator.MainView>
         implements MainPresenter {
 
     private final String SHARED_NAME = "calculator_shared";
@@ -18,13 +18,13 @@ class MainPresenterImpl
     private final String MAINVIEW_FIRSTNUMBER = "mainView_firstNumber";
     private final String MAINVIEW_SECONDNUMBER = "mainView_secondNumber";
 
-    private Model model;
+    private ru.narod.nod.ancalculator.Model model;
 
-    public Model getModel() {
+    public ru.narod.nod.ancalculator.Model getModel() {
         return this.model;
     }
 
-    public void setModel(Model model) {
+    public void setModel(ru.narod.nod.ancalculator.Model model) {
         this.model = model;
     }
 
@@ -51,10 +51,10 @@ class MainPresenterImpl
                 break;
             case R.id.buttonMR:
                 if (model.getAction() == 0) {
-                    model.clearField(true);
+                    model.clearFirstField(true);
                     model.setFirst(model.memory(3));
                 } else {
-                    model.clearField(false);
+                    model.clearFirstField(false);
                     model.setSecond(model.memory(3));
                 }
                 break;
@@ -92,7 +92,7 @@ class MainPresenterImpl
                 buttonNumberTreatment(9);
                 break;
             case R.id.buttonDot:
-                buttonActionTreatment(10);
+                buttonActionTreatment(101);
                 break;
             case R.id.buttonPlus:
                 buttonActionTreatment(1);
@@ -109,6 +109,21 @@ class MainPresenterImpl
             case R.id.buttonEqual:
                 buttonActionTreatment(5);
                 break;
+            case R.id.buttonBack:
+                buttonActionTreatment(6);
+                break;
+            case R.id.buttonReverse:
+                buttonActionTreatment(7);
+                break;
+            case R.id.buttonPercent:
+                buttonActionTreatment(8);
+                break;
+            case R.id.buttonProg1:
+                buttonActionTreatment(9);
+                break;
+            case R.id.buttonProg2:
+                buttonActionTreatment(10);
+                break;
             case R.id.buttonC:
                 model.clear();
                 break;
@@ -120,40 +135,42 @@ class MainPresenterImpl
         //In case that action was not set
         if (model.getAction() < 1 || model.getAction() > 4) {
             model.setCurrentFieldFirst(true);
-            if (num == 10)
+            if (num == 101)
                 //If after "-" is going "." than put "0" after "-"
                 if (model.getFirst().equals("-")) {
                     model.setFirst("0.");
                 } else {
                     model.setFirst(".");
                 }
-            else if (num == 0) {
+            else if (num == 0 || model.getFirst().equals("0")) {
                 //Checking fot NotDoubleZero in the beginning of a string
                 if (!model.getFirst().equals("0")) {
                     model.setFirst(String.valueOf(num));
+                } else if (model.getFirst().length() > 1) {
+                    model.setFirst(String.valueOf(num));
                 } else {
-                    if (model.getFirst().length() > 1) {
-                        model.setFirst(String.valueOf(num));
-                    }
+                    model.clearFirstField(true);
+                    model.setFirst(String.valueOf(num));
                 }
             } else
                 model.setFirst(String.valueOf(num));
             //Action was set
         } else {
             model.setCurrentFieldFirst(false);
-            if (num == 10)
+            if (num == 101)
                 if (model.getSecond().equals(""))
                     model.setSecond("0.");
                 else
                     model.setSecond(".");
-            else if (num == 0) {
+            else if (num == 0 || model.getSecond().equals("0")) {
                 //Checking fot NotDoubleZero in the beginning of a string
                 if (!model.getSecond().equals("0")) {
                     model.setSecond(String.valueOf(num));
+                } else if (model.getSecond().length() > 1) {
+                    model.setSecond(String.valueOf(num));
                 } else {
-                    if (model.getSecond().length() > 1) {
-                        model.setSecond(String.valueOf(num));
-                    }
+                    model.clearFirstField(false);
+                    model.setSecond(String.valueOf(num));
                 }
             } else
                 model.setSecond(String.valueOf(num));
@@ -166,38 +183,111 @@ class MainPresenterImpl
             model.setFirst(model.getTableInfo());
         }
 
-        //1 - plus, 2 - minus, 3 - multiply, 4 - divide, 5 - equal, 10 - dot
         switch (num) {
-            case 1:
+            case 1: //plus
                 model.setAction(1);
                 break;
-            case 2:
+            case 2: //minus
                 if (model.isCurrentFieldFirst()) {
                     if (model.getFirst().equals("0")) {
-                        model.clearField(model.isCurrentFieldFirst());
+                        model.clearFirstField(model.isCurrentFieldFirst());
                         model.setFirst("-");
                     } else
                         model.setAction(2);
                 } else {
                     if (model.getSecond().equals("0")) {
-                        model.clearField(model.isCurrentFieldFirst());
+                        model.clearFirstField(model.isCurrentFieldFirst());
                         model.setSecond("-");
                     } else
                         model.setAction(2);
                 }
                 break;
-            case 3:
+            case 3: //multiply
                 model.setAction(3);
                 break;
-            case 4:
+            case 4: //divide
                 model.setAction(4);
                 break;
-            case 5:
+            case 5: //equal
                 model.compute(true);
 //                showResult(model.getTableInfo());
                 break;
-            case 10:
-                buttonNumberTreatment(10);
+            case 6: //buttonBack
+                //region Backword function
+                if (model.isCurrentFieldFirst()) {
+                    if (model.getFirst().equals("") && model.getAction() != 0)
+                        model.setFirst(model.getTableInfo()); //if the first number is empty, makes the first number with the table info
+                    if (model.getFirst().length() > 1) {
+                        String tempStr = model.getFirst().substring(0, model.getFirst().length() - 1);
+                        model.clearFirstField(true);
+                        model.setFirst(tempStr);
+                    } else {
+                        model.clearFirstField(true);
+                        model.setFirst("0");
+                    }
+                } else {
+                    if (model.getSecond().equals("") && model.getAction() != 0)
+                        model.setSecond(model.getTableInfo()); //if the second number is empty, makes the second number with the table info
+                    if (model.getSecond().length() > 1) {
+                        String tempStr = model.getSecond().substring(0, model.getSecond().length() - 1);
+                        model.clearFirstField(false);
+                        model.setSecond(tempStr);
+                    } else {
+                        model.clearFirstField(false);
+                        model.setSecond("0");
+                    }
+                }
+                //endregion
+                break;
+            case 7: //buttonReverse
+                //region Reverse function
+                if (model.isCurrentFieldFirst()) {
+                    String tempStr = model.getFirst();
+                    model.clearFirstField(true);
+                    if (tempStr.charAt(0) == '-')
+                        model.setFirst(tempStr.substring(1)); //change polarity to positive
+                    else {
+                        model.setFirst("-" + tempStr); //change polarity to negative
+                    } //cannot be empty string
+                } else {
+                    String tempStr = model.getSecond();
+                    model.clearFirstField(false);
+                    if (tempStr.length() > 0) {
+                        if (tempStr.charAt(0) == '-')
+                            model.setSecond(tempStr.substring(1)); //change polarity to positive
+                        else {
+                            model.setSecond("-" + tempStr); //change polarity to negative
+                        }
+                    } else {
+                        model.setSecond("-"); //no symbols in 2nd string at all
+                    }
+                }
+                //endregion
+                break;
+            case 8: //buttonPercent
+                //region Percentage function
+                if (model.isCurrentFieldFirst()) {
+                    String tempStr = model.getFirst();
+                    model.clearFirstField(true);
+                    model.setFirst(model.calculatePercentage(tempStr));
+                } else {
+                    String tempStr = model.getSecond();
+                    model.clearFirstField(false);
+                    if (tempStr.length() > 0)
+                        model.setSecond(model.calculatePercentage(tempStr));
+                }
+                //endregion
+                break;
+            case 9: //buttonProg1
+                //model.;
+
+                break;
+            case 10: //buttonProg2
+                //model.;
+
+                break;
+            case 101: //dot
+                buttonNumberTreatment(101);
                 break;
         }
         showResult(model.getTableInfo());
@@ -209,7 +299,7 @@ class MainPresenterImpl
 
         getView().showTable(MAINVIEW_FIRSTNUMBER, model.getFirst());
 
-        //1 - plus, 2 - minus, 3 - multiply, 4 - divide, 5 - dot
+        //1 - plus, 2 - minus, 3 - multiply, 4 - divide
         switch (model.getAction()) {
             case 0:
                 getView().showTable(MAINVIEW_ACTION, "");

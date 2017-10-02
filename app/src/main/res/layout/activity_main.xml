@@ -10,14 +10,14 @@
         android:background="@mipmap/backgroun_metal_lines"
         android:orientation="vertical"
         android:paddingTop="15dp"
-        tools:context="com.example.otc.ancalculator.MainActivity">
+        tools:context="ru.narod.nod.ancalculator.MainActivity">
 
         <FrameLayout
             android:id="@+id/mainView_tableBackground"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="3dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
@@ -26,7 +26,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_weight="1.2">
+            app:layout_constraintVertical_weight="1.3">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                     android:layout_height="0dp"
                     android:maxLength="12"
                     android:maxLines="1"
-                    android:text=""
+                    android:text="0"
                     android:textSize="50sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -124,17 +124,19 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="3dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="3dp"
             app:layout_constraintBottom_toTopOf="@+id/tableLayout_buttons"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mainView_tableBackground"
-            app:layout_constraintVertical_weight="1">
+            app:layout_constraintVertical_weight="1.4">
 
-            <TableRow android:orientation="vertical">
+            <TableRow
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/buttonC"
@@ -186,6 +188,63 @@
                     android:textColor="@color/DarkKhaki"
                     android:textSize="25sp" />
             </TableRow>
+
+            <TableRow
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonBack"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@mipmap/button_gray"
+                    android:text="←"
+                    android:textColor="@color/DarkKhaki"
+                    android:textSize="25sp" />
+
+                <Button
+                    android:id="@+id/buttonReverse"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@mipmap/button_gray"
+                    android:text="±"
+                    android:textColor="@color/DarkKhaki"
+                    android:textSize="25sp" />
+
+                <Button
+                    android:id="@+id/buttonPercent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@mipmap/button_gray"
+                    android:text="%"
+                    android:textColor="@color/DarkKhaki"
+                    android:textSize="25sp" />
+
+                <Button
+                    android:id="@+id/buttonProg1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@mipmap/button_gray"
+                    android:clickable="false"
+                    android:text="P1"
+                    android:textColor="@color/DarkKhaki"
+                    android:textSize="25sp" />
+
+                <Button
+                    android:id="@+id/buttonProg2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@mipmap/button_gray"
+                    android:clickable="false"
+                    android:text="P2"
+                    android:textColor="@color/DarkKhaki"
+                    android:textSize="25sp" />
+            </TableRow>
         </TableLayout>
 
         <TableLayout
@@ -193,10 +252,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="18dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

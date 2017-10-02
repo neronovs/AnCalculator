@@ -1,4 +1,4 @@
-package com.example.otc.ancalculator;
+package ru.narod.nod.ancalculator;
 
 import android.content.SharedPreferences;
 
@@ -27,6 +27,9 @@ public interface Model {
     //Shared Preferences
     void setSharedPreferences(SharedPreferences sharedPreferences);
 
+    //Calculate a percentage
+    public String calculatePercentage(String stringNumber);
+
     //Working with the first and the second numbers
     void setFirst(String first);
     String getFirst();
@@ -36,7 +39,7 @@ public interface Model {
     void setAction(int act);
     int getAction();
     //To clear a field from 0 when it was pressed "-"
-    void clearField(boolean firstField);
+    void clearFirstField(boolean firstField);
     boolean isCurrentFieldFirst();
     void setCurrentFieldFirst(boolean currentFieldFirst);
     }

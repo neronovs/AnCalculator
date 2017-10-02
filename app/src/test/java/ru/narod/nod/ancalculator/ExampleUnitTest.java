@@ -1,4 +1,4 @@
-package com.example.otc.ancalculator;
+package ru.narod.nod.ancalculator;
 
 import org.junit.Test;
 

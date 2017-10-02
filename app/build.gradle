@@ -24,19 +24,28 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
-        applicationId "com.example.otc.ancalculator"
+        applicationId "ru.narod.nod.ancalculator"
         minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        project.ext.set("archivesBaseName", "CalcRelease-");
+                //+ defaultConfig.versionName);
+
+//        buildConfigField "String", "PROGRAM_NAME", '"AnCalculator :)"'
     }
     dataBinding {
         enabled = true
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "PROGRAM_NAME", '"AnCalc DEBUG"'
+        }
         release {
-            minifyEnabled false
+            buildConfigField "String", "PROGRAM_NAME", '"AnCalculator :)"'
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

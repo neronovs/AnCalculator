@@ -1,24 +1,13 @@
-package com.example.otc.ancalculator;
+package ru.narod.nod.ancalculator;
 
 import android.content.Context;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Rule;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
-import static android.R.attr.mode;
-import static android.R.attr.targetClass;
-import static android.R.attr.value;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by User on 16.09.2017.

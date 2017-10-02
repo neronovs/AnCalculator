@@ -1,25 +1,21 @@
-package com.example.otc.ancalculator;
+package ru.narod.nod.ancalculator;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by User on 16.09.2017.
@@ -96,6 +92,22 @@ public class ComputerTest {
         model.setAction(4);
         String calc = model.compute(false);
         assertThat(calc, is("888.88"));
+    }
+    @Test
+    public void computeDivision2() throws Exception {
+        model.setFirst("3915222.93");
+        model.setSecond("35.13733546");
+        model.setAction(4);
+        String calc = model.compute(false);
+        assertThat(calc, is("111426.28997742448624475180964675231"));
+    }
+    @Test
+    public void computeDivision3() throws Exception {
+        model.setFirst("1");
+        model.setSecond("100000");
+        model.setAction(4);
+        String calc = model.compute(false);
+        assertThat(calc, is("0.00001"));
     }
 
     //Memory Plus

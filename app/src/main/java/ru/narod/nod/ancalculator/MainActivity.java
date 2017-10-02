@@ -1,4 +1,4 @@
-package com.example.otc.ancalculator;
+package ru.narod.nod.ancalculator;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.example.otc.ancalculator.databinding.ActivityMainBinding;
+import ru.narod.nod.ancalculator.databinding.ActivityMainBinding;
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 import io.fabric.sdk.android.Fabric;
 
@@ -24,6 +24,8 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
 //        setContentView(R.layout.activity_main);
+
+        setTitle(BuildConfig.PROGRAM_NAME);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setOnClicker();
@@ -93,5 +95,10 @@ public class MainActivity
         binding.buttonPlus.setOnClickListener(this);
         binding.buttonDot.setOnClickListener(this);
         binding.buttonEqual.setOnClickListener(this);
+        binding.buttonBack.setOnClickListener(this);
+        binding.buttonReverse.setOnClickListener(this);
+        binding.buttonPercent.setOnClickListener(this);
+        binding.buttonProg1.setOnClickListener(this);
+        binding.buttonProg2.setOnClickListener(this);
     }
 }
