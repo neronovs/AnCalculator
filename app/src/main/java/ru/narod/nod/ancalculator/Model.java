@@ -27,8 +27,8 @@ public interface Model {
     //Shared Preferences
     void setSharedPreferences(SharedPreferences sharedPreferences);
 
-    //Calculate a percentage
-    public String calculatePercentage(String stringNumber);
+    //Calculate with parametres
+    public String calculateWithParametres(String mFirstNum, String mSecondNum, String mAct);
 
     //Working with the first and the second numbers
     void setFirst(String first);

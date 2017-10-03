@@ -104,10 +104,31 @@ class Computer implements ru.narod.nod.ancalculator.Model {
     }
 
     @Override
-    public String calculatePercentage(String stringNumber) {
-        return makePropriateTextForNumberWithPoint(
-                BigDecimal.valueOf(Double.parseDouble(stringNumber))
-                .multiply(BigDecimal.valueOf(0.01d)).toString());
+    public String calculateWithParametres(String mFirstNum, final String mSecondNum, String mAct) {
+        String res = null;
+        switch (mAct) {
+            case "%":
+                res = makePropriateTextForNumberWithPoint(
+                        BigDecimal.valueOf(Double.parseDouble(mFirstNum))
+                                .multiply(BigDecimal.valueOf(0.01d)).toString());
+                break;
+            case "SQRT":
+                double tempDouble = 0d;
+                tempDouble = Math.sqrt(Double.parseDouble(mFirstNum));
+                res = makePropriateTextForNumberWithPoint(
+                        String.valueOf(
+                                tempDouble));
+                break;
+            case "POW":
+                BigDecimal bigDecRes;// = BigDecimal.ZERO;
+                bigDecRes = BigDecimal.valueOf(Double.parseDouble(mFirstNum));
+                res = makePropriateTextForNumberWithPoint(
+                        String.valueOf(
+                                bigDecRes.pow(Integer.valueOf(mSecondNum))));
+                break;
+        }
+
+        return res;
     }
 
     private String makePropriateTextForNumberWithPoint(String text) {
@@ -115,14 +136,23 @@ class Computer implements ru.narod.nod.ancalculator.Model {
             for (int i = text.length() - 1; i >= text.indexOf("."); i--) {
                 if (text.substring(i, i + 1).equals("0")) {
                     text = text.substring(0, i);
-                } else if (text.substring(i, i + 1).equals(".")) {
-                    text = text.substring(0, text.indexOf("."));
-                    break;
-                } else {
-                    break;
                 }
+//                else if (text.substring(i, i + 1).equals(".")) {
+//                    text = text.substring(0, text.indexOf("."));
+//                    break;
+//                } else {
+//                    break;
+//                }
             }
         }
+
+        if (text.charAt(0) == '-')
+            if (text.length() > 2) {
+                if (text.charAt(1) == '0' && text.charAt(2) != '.')
+                    text = "-" + text.substring(2);
+            } else {
+                text = "-" + "0";
+            }
 
         return text;
     }
@@ -156,12 +186,6 @@ class Computer implements ru.narod.nod.ancalculator.Model {
                 break;
             case 3:
                 mem = makePropriateTextForNumberWithPoint(loadPrefs());
-//                if (model.action == 0)
-//                    model.first = mem;
-//                else
-//                    model.second = mem;
-//
-//                model.tableInfo = mem;
                 break;
             case 4:
                 savePrefs("0");
@@ -224,7 +248,7 @@ class Computer implements ru.narod.nod.ancalculator.Model {
             model.first += first;
         }
 
-        model.tableInfo = model.first;
+        model.tableInfo = model.first = makePropriateTextForNumberWithPoint(model.first);
     }
 
     @Override
@@ -241,7 +265,7 @@ class Computer implements ru.narod.nod.ancalculator.Model {
             model.second += second;
         }
 
-        model.tableInfo = model.second;
+        model.tableInfo = model.second = makePropriateTextForNumberWithPoint(model.second);
     }
     //endregion
 

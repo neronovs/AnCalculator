@@ -118,16 +118,17 @@ class MainPresenterImpl
             case R.id.buttonPercent:
                 buttonActionTreatment(8);
                 break;
-            case R.id.buttonProg1:
+            case R.id.buttonSQRT:
                 buttonActionTreatment(9);
                 break;
-            case R.id.buttonProg2:
+            case R.id.buttonPow:
                 buttonActionTreatment(10);
                 break;
             case R.id.buttonC:
                 model.clear();
                 break;
         }
+
         showResult(model.getTableInfo());
     }
 
@@ -152,8 +153,9 @@ class MainPresenterImpl
                     model.clearFirstField(true);
                     model.setFirst(String.valueOf(num));
                 }
-            } else
+            } else {
                 model.setFirst(String.valueOf(num));
+            }
             //Action was set
         } else {
             model.setCurrentFieldFirst(false);
@@ -188,6 +190,7 @@ class MainPresenterImpl
                 model.setAction(1);
                 break;
             case 2: //minus
+                //region Minus
                 if (model.isCurrentFieldFirst()) {
                     if (model.getFirst().equals("0")) {
                         model.clearFirstField(model.isCurrentFieldFirst());
@@ -201,6 +204,7 @@ class MainPresenterImpl
                     } else
                         model.setAction(2);
                 }
+                //endregion
                 break;
             case 3: //multiply
                 model.setAction(3);
@@ -210,7 +214,6 @@ class MainPresenterImpl
                 break;
             case 5: //equal
                 model.compute(true);
-//                showResult(model.getTableInfo());
                 break;
             case 6: //buttonBack
                 //region Backword function
@@ -247,6 +250,8 @@ class MainPresenterImpl
                     if (tempStr.charAt(0) == '-')
                         model.setFirst(tempStr.substring(1)); //change polarity to positive
                     else {
+                        if (tempStr.charAt(0) == '0' && tempStr.length() > 1)
+                            tempStr = tempStr.substring(1);
                         model.setFirst("-" + tempStr); //change polarity to negative
                     } //cannot be empty string
                 } else {
@@ -269,22 +274,42 @@ class MainPresenterImpl
                 if (model.isCurrentFieldFirst()) {
                     String tempStr = model.getFirst();
                     model.clearFirstField(true);
-                    model.setFirst(model.calculatePercentage(tempStr));
+                    model.setFirst(model.calculateWithParametres(tempStr, null, "%"));
                 } else {
                     String tempStr = model.getSecond();
                     model.clearFirstField(false);
                     if (tempStr.length() > 0)
-                        model.setSecond(model.calculatePercentage(tempStr));
+                        model.setSecond(model.calculateWithParametres(tempStr, null, "%"));
                 }
                 //endregion
                 break;
-            case 9: //buttonProg1
-                //model.;
-
+            case 9: //buttonSQRT
+                //region Square root function
+                if (model.isCurrentFieldFirst()) {
+                    String tempStr = model.getFirst();
+                    model.clearFirstField(true);
+                    model.setFirst(model.calculateWithParametres(tempStr, "2", "SQRT"));
+                } else {
+                    String tempStr = model.getSecond();
+                    model.clearFirstField(false);
+                    if (tempStr.length() > 0)
+                        model.setSecond(model.calculateWithParametres(tempStr, "2", "SQRT"));
+                }
+                //endregion
                 break;
-            case 10: //buttonProg2
-                //model.;
-
+            case 10: //buttonPow
+                //region Power function
+                if (model.isCurrentFieldFirst()) {
+                    String tempStr = model.getFirst();
+                    model.clearFirstField(true);
+                    model.setFirst(model.calculateWithParametres(tempStr, "2", "POW"));
+                } else {
+                    String tempStr = model.getSecond();
+                    model.clearFirstField(false);
+                    if (tempStr.length() > 0)
+                        model.setSecond(model.calculateWithParametres(tempStr, "2", "POW"));
+                }
+                //endregion
                 break;
             case 101: //dot
                 buttonNumberTreatment(101);

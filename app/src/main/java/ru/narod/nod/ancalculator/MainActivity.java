@@ -25,7 +25,7 @@ public class MainActivity
         Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
 //        setContentView(R.layout.activity_main);
 
-        setTitle(BuildConfig.PROGRAM_NAME);
+//        setTitle(BuildConfig.PROGRAM_NAME);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setOnClicker();
@@ -98,7 +98,7 @@ public class MainActivity
         binding.buttonBack.setOnClickListener(this);
         binding.buttonReverse.setOnClickListener(this);
         binding.buttonPercent.setOnClickListener(this);
-        binding.buttonProg1.setOnClickListener(this);
-        binding.buttonProg2.setOnClickListener(this);
+        binding.buttonSQRT.setOnClickListener(this);
+        binding.buttonPow.setOnClickListener(this);
     }
 }
