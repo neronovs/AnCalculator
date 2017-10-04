@@ -250,8 +250,8 @@ class MainPresenterImpl
                     if (tempStr.charAt(0) == '-')
                         model.setFirst(tempStr.substring(1)); //change polarity to positive
                     else {
-                        if (tempStr.charAt(0) == '0' && tempStr.length() > 1)
-                            tempStr = tempStr.substring(1);
+//                        if (tempStr.charAt(0) == '0' && tempStr.length() > 1)
+//                            tempStr = tempStr.substring(1);
                         model.setFirst("-" + tempStr); //change polarity to negative
                     } //cannot be empty string
                 } else {

@@ -82,6 +82,19 @@ class Computer implements ru.narod.nod.ancalculator.Model {
                 //Make text from BigDecimal
                 String textFromRes = makePropriateTextForNumberWithPoint(String.valueOf(res));
 
+                //Remove last zeros
+                if (textFromRes.substring(textFromRes.length() - 1).equals("0")) {
+                    for (int i = textFromRes.length() - 1; i >= textFromRes.indexOf("."); i--) {
+                        if (textFromRes.substring(textFromRes.length() - 1).equals("0"))
+                            textFromRes = textFromRes.substring(0, i);
+                        else break;
+                    }
+                }
+                //remove "." at the anding in a string
+                if (textFromRes.charAt(textFromRes.length() - 1) == '.')
+                    textFromRes = textFromRes.substring(0, textFromRes.indexOf("."));
+
+
                 if (textFromRes.contains(".") &&
                         textFromRes.substring(textFromRes.indexOf(".") + 1).equals("0"))
                     model.tableInfo = textFromRes.substring(0, textFromRes.indexOf("."));
@@ -100,6 +113,7 @@ class Computer implements ru.narod.nod.ancalculator.Model {
 
             equalPressed = false;
         }
+
         return model.tableInfo;
     }
 
@@ -108,51 +122,96 @@ class Computer implements ru.narod.nod.ancalculator.Model {
         String res = null;
         switch (mAct) {
             case "%":
-                res = makePropriateTextForNumberWithPoint(
-                        BigDecimal.valueOf(Double.parseDouble(mFirstNum))
-                                .multiply(BigDecimal.valueOf(0.01d)).toString());
+                res = BigDecimal.valueOf(Double.parseDouble(mFirstNum))
+                                .multiply(BigDecimal.valueOf(0.01d)).toString();
                 break;
             case "SQRT":
                 double tempDouble = 0d;
-                tempDouble = Math.sqrt(Double.parseDouble(mFirstNum));
-                res = makePropriateTextForNumberWithPoint(
-                        String.valueOf(
-                                tempDouble));
+                //Negative numbers cannot be SQRT
+                if (mFirstNum.charAt(0) != '-')
+                    res = String.valueOf(Math.sqrt(Double.parseDouble(mFirstNum)));
+                else
+                    res = "0";
+
                 break;
             case "POW":
                 BigDecimal bigDecRes;// = BigDecimal.ZERO;
                 bigDecRes = BigDecimal.valueOf(Double.parseDouble(mFirstNum));
-                res = makePropriateTextForNumberWithPoint(
-                        String.valueOf(
-                                bigDecRes.pow(Integer.valueOf(mSecondNum))));
+                res = String.valueOf(bigDecRes.pow(Integer.valueOf(mSecondNum)));
                 break;
+        }
+
+        res = removeZerosAndDotsAtTheEnd(res);
+
+        return makePropriateTextForNumberWithPoint(res);
+    }
+
+    //Removes "." and "0" at the end of a string
+    private String removeZerosAndDotsAtTheEnd(String res) {
+        if (res.charAt(res.length()) == '0') {
+            for (int i = res.length() - 1; i >= res.indexOf("."); i--) {
+                if (res.substring(i, i + 1).equals("0")) {
+                    res = res.substring(0, i);
+                } else if (res.substring(i, i + 1).equals(".")) {
+                    res = res.substring(0, res.indexOf(".")+1);
+                    break;
+                } else {
+                    break;
+                }
+            }
         }
 
         return res;
     }
 
     private String makePropriateTextForNumberWithPoint(String text) {
-        if (text.contains(".")) {
-            for (int i = text.length() - 1; i >= text.indexOf("."); i--) {
-                if (text.substring(i, i + 1).equals("0")) {
-                    text = text.substring(0, i);
-                }
-//                else if (text.substring(i, i + 1).equals(".")) {
-//                    text = text.substring(0, text.indexOf("."));
+//        if (text.contains(".")) {
+//            for (int i = text.length() - 1; i >= text.indexOf("."); i--) {
+//                if (text.substring(i, i + 1).equals("0")) {
+//                    text = text.substring(0, i);
+//                } else if (text.substring(i, i + 1).equals(".")) {
+//                    text = text.substring(0, text.indexOf(".")+1);
 //                    break;
 //                } else {
 //                    break;
 //                }
-            }
-        }
+//            }
+//        }
 
-        if (text.charAt(0) == '-')
+        if (text.charAt(0) == '-') {
             if (text.length() > 2) {
-                if (text.charAt(1) == '0' && text.charAt(2) != '.')
+                for (int i = 1; i < text.indexOf('.'); i++) {
+                    if (text.charAt(1) == '0' && text.charAt(2) != '.')
+                        text = "-" + text.substring(2);
+                    else
+                        break;
+                }
+
+                if (text.charAt(1) == '0' && text.length() > 2 && text.charAt(2) != '.')
                     text = "-" + text.substring(2);
+
+            } else if (text.length() == 2) {
+                text = "-" + text.charAt(1);
             } else {
                 text = "-" + "0";
             }
+        } else if (text.charAt(0) == '0') {
+            boolean flagZeroFirst = true;
+            for (int i = 0; i < text.indexOf("."); i++) {
+                if (text.charAt(i) == '0')
+                    flagZeroFirst = true;
+                else
+                    flagZeroFirst = false;
+
+                if (!flagZeroFirst) {
+                    text = text.substring(i);
+                    break;
+                }
+            }
+        }
+
+//        if (text.equals("0.0") && )
+//            text = "0";
 
         return text;
     }

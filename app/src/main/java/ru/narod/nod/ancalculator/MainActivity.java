@@ -63,12 +63,18 @@ public class MainActivity
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
         //Pressing animation
-        YoYo.with(Techniques.Pulse)
-                .duration(300)
-                .repeat(0)
-                .playOn(view);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                YoYo.with(Techniques.Pulse)
+                        .duration(300)
+                        .repeat(0)
+                        .playOn(view);
+            }
+        });
+
 
         presenter.buttonPressed(view.getId());
     }

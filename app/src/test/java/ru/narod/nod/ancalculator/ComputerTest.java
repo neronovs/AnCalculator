@@ -87,8 +87,8 @@ public class ComputerTest {
     //Compute division
     @Test
     public void computeDivision() throws Exception {
-        model.setFirst("295997.04");
-        model.setSecond("333");
+        model.setFirst("295997.0400");
+        model.setSecond("0333");
         model.setAction(4);
         String calc = model.compute(false);
         assertThat(calc, is("888.88"));
@@ -199,6 +199,17 @@ public class ComputerTest {
         assertFalse(model.getAction() == 3);
         assertTrue(model.getAction() == 4);
         assertEquals(4, model.getAction());
+    }
+
+    @Test
+    public void makePropriateTextForNumberWithPoint() throws Exception {
+        model.setFirst("00000200005.000000900000000");
+        assertThat(model.getFirst(), is("200005.0000009"));
+
+        model.clearFirstField(true);
+
+        model.setFirst("-00000200005.000000900000000");
+        assertThat(model.getFirst(), is("-200005.0000009"));
     }
 
 
