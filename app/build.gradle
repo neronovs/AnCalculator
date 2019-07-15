@@ -31,7 +31,7 @@ android {
         applicationId "ru.narod.nod.ancalculator"
         minSdkVersion 17
         targetSdkVersion 28
-        versionCode 5
+        versionCode 6
         versionName "1.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         project.ext.set("archivesBaseName", "CalcRelease-")
