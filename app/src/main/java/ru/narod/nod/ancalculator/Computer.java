@@ -123,10 +123,9 @@ class Computer implements ru.narod.nod.ancalculator.Model {
         switch (mAct) {
             case "%":
                 res = BigDecimal.valueOf(Double.parseDouble(mFirstNum))
-                                .multiply(BigDecimal.valueOf(0.01d)).toString();
+                        .multiply(BigDecimal.valueOf(0.01d)).toString();
                 break;
             case "SQRT":
-                double tempDouble = 0d;
                 //Negative numbers cannot be SQRT
                 if (mFirstNum.charAt(0) != '-')
                     res = String.valueOf(Math.sqrt(Double.parseDouble(mFirstNum)));
@@ -135,7 +134,7 @@ class Computer implements ru.narod.nod.ancalculator.Model {
 
                 break;
             case "POW":
-                BigDecimal bigDecRes;// = BigDecimal.ZERO;
+                BigDecimal bigDecRes;
                 bigDecRes = BigDecimal.valueOf(Double.parseDouble(mFirstNum));
                 res = String.valueOf(bigDecRes.pow(Integer.valueOf(mSecondNum)));
                 break;
@@ -148,12 +147,13 @@ class Computer implements ru.narod.nod.ancalculator.Model {
 
     //Removes "." and "0" at the end of a string
     private String removeZerosAndDotsAtTheEnd(String res) {
-        if (res.charAt(res.length()) == '0') {
+        if (res == null) res = "0";
+        if (res.charAt(res.length() - 1) == '0') {
             for (int i = res.length() - 1; i >= res.indexOf("."); i--) {
                 if (res.substring(i, i + 1).equals("0")) {
                     res = res.substring(0, i);
                 } else if (res.substring(i, i + 1).equals(".")) {
-                    res = res.substring(0, res.indexOf(".")+1);
+                    res = res.substring(0, res.indexOf(".") + 1);
                     break;
                 } else {
                     break;
@@ -165,19 +165,6 @@ class Computer implements ru.narod.nod.ancalculator.Model {
     }
 
     private String makePropriateTextForNumberWithPoint(String text) {
-//        if (text.contains(".")) {
-//            for (int i = text.length() - 1; i >= text.indexOf("."); i--) {
-//                if (text.substring(i, i + 1).equals("0")) {
-//                    text = text.substring(0, i);
-//                } else if (text.substring(i, i + 1).equals(".")) {
-//                    text = text.substring(0, text.indexOf(".")+1);
-//                    break;
-//                } else {
-//                    break;
-//                }
-//            }
-//        }
-
         if (text.charAt(0) == '-') {
             if (text.length() > 2) {
                 for (int i = 1; i < text.indexOf('.'); i++) {
@@ -196,12 +183,9 @@ class Computer implements ru.narod.nod.ancalculator.Model {
                 text = "-" + "0";
             }
         } else if (text.charAt(0) == '0') {
-            boolean flagZeroFirst = true;
+            boolean flagZeroFirst;
             for (int i = 0; i < text.indexOf("."); i++) {
-                if (text.charAt(i) == '0')
-                    flagZeroFirst = true;
-                else
-                    flagZeroFirst = false;
+                flagZeroFirst = text.charAt(i) == '0';
 
                 if (!flagZeroFirst) {
                     text = text.substring(i);
@@ -209,9 +193,6 @@ class Computer implements ru.narod.nod.ancalculator.Model {
                 }
             }
         }
-
-//        if (text.equals("0.0") && )
-//            text = "0";
 
         return text;
     }
@@ -273,7 +254,7 @@ class Computer implements ru.narod.nod.ancalculator.Model {
         try {
             return model.sharedPreferences.getString(MEMORY_KEY, "0");
         } catch (Exception ex) {
-//            Log.e(TAG, ": loadPrefs() error in sharedPreferences.getString(MEMORY_KEY, \"0\"). " + ex);
+            Log.e(TAG, ": loadPrefs() error in sharedPreferences.getString(MEMORY_KEY, \"0\"). " + ex);
         }
 
         return "0";

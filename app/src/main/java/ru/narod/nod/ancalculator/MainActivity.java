@@ -1,35 +1,93 @@
 package ru.narod.nod.ancalculator;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import ru.narod.nod.ancalculator.databinding.ActivityMainBinding;
+
+import ru.narod.nod.ancalculator.databinding.ActivityMain1Binding;
+
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
+
 import io.fabric.sdk.android.Fabric;
+import ru.narod.nod.ancalculator.privacy_policy.PrivacyPolicyFragment;
 
 public class MainActivity
         extends MvpActivity<MainView, MainPresenter>
         implements MainView, View.OnClickListener {
 
-    private ActivityMainBinding binding;
+    private ActivityMain1Binding binding;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
-//        setContentView(R.layout.activity_main);
 
-//        setTitle(BuildConfig.PROGRAM_NAME);
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main1);
         setOnClicker();
         presenter.showResult("0");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        this.menu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menuPrivacyPolicy:
+                showPrivacyPolicy();
+                return true;
+            case R.id.menuClose:
+                closePrivacyPolicy();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void closePrivacyPolicy() {
+        getSupportFragmentManager().popBackStackImmediate();
+    }
+
+    private void showPrivacyPolicy() {
+        PrivacyPolicyFragment fragment = PrivacyPolicyFragment.Companion.newInstance();
+
+        // Begin the transaction
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        // Replace the contents of the container with the new fragment
+        ft.replace(R.id.main_container, fragment);
+        // Add to bakstack
+        ft.addToBackStack(fragment.getTag());
+        // Complete the changes added above
+        ft.commit();
+
+        fragment.setMenu(this.menu);
+    }
+
+    public void onGroupItemClick(MenuItem item) {
+        // One of the group items (using the onClick attribute) was clicked
+        // The item parameter passed here indicates which item it is
+        // All other menu item clicks are handled by <code><a href="/reference/android/app/Activity.html#onOptionsItemSelected(android.view.MenuItem)">onOptionsItemSelected()</a></code>
     }
 
     @NonNull
@@ -65,15 +123,10 @@ public class MainActivity
     @Override
     public void onClick(final View view) {
         //Pressing animation
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                YoYo.with(Techniques.Pulse)
-                        .duration(300)
-                        .repeat(0)
-                        .playOn(view);
-            }
-        });
+        runOnUiThread(() -> YoYo.with(Techniques.Pulse)
+                .duration(300)
+                .repeat(0)
+                .playOn(view));
 
 
         presenter.buttonPressed(view.getId());
