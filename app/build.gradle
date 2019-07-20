@@ -25,6 +25,11 @@ repositories {
 }
 
 android {
+    signingConfigs {
+        ancalc_sign {
+            storeFile file('/Users/neronovs/Downloads/keystore_calc.jks')
+        }
+    }
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
     defaultConfig {
@@ -43,15 +48,15 @@ android {
         enabled = true
     }
     buildTypes {
-//        debug {
-//            buildConfigField "String", "PROGRAM_NAME", '"AnCalc DEBUG"'
-//        }
-//        release {
-//            buildConfigField "String", "PROGRAM_NAME", '"AnCalculator :)"'
-//            minifyEnabled true
-//            shrinkResources true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//        }
+        debug {
+            buildConfigField "String", "PROGRAM_NAME", '"AnCalc DEBUG"'
+        }
+        release {
+            buildConfigField "String", "PROGRAM_NAME", '"AnCalculator :)"'
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
     compileOptions {
         sourceCompatibility = '1.8'
