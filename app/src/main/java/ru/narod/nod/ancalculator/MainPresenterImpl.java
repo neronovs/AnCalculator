@@ -283,24 +283,27 @@ class MainPresenterImpl
 
     @Override
     public void showResult(String text) {
-        getView().showTable(MAINVIEW_TABLE, text);
+        ifViewAttached(mainView -> {
+            mainView.showTable(MAINVIEW_TABLE, text);
 
-        getView().showTable(MAINVIEW_FIRSTNUMBER, model.getFirst());
+            mainView.showTable(MAINVIEW_FIRSTNUMBER, model.getFirst());
 
-        //1 - plus, 2 - minus, 3 - multiply, 4 - divide
-        switch (model.getAction()) {
-            case 0 -> getView().showTable(MAINVIEW_ACTION, "");
-            case 1 -> getView().showTable(MAINVIEW_ACTION, " + ");
-            case 2 -> getView().showTable(MAINVIEW_ACTION, " - ");
-            case 3 -> getView().showTable(MAINVIEW_ACTION, " × ");
-            case 4 -> getView().showTable(MAINVIEW_ACTION, " ÷ ");
-        }
+            //1 - plus, 2 - minus, 3 - multiply, 4 - divide
+            switch (model.getAction()) {
+                case 0 -> mainView.showTable(MAINVIEW_ACTION, "");
+                case 1 -> mainView.showTable(MAINVIEW_ACTION, " + ");
+                case 2 -> mainView.showTable(MAINVIEW_ACTION, " - ");
+                case 3 -> mainView.showTable(MAINVIEW_ACTION, " × ");
+                case 4 -> mainView.showTable(MAINVIEW_ACTION, " ÷ ");
+            }
 
-        getView().showTable(MAINVIEW_SECONDNUMBER, model.getSecond());
+            mainView.showTable(MAINVIEW_SECONDNUMBER, model.getSecond());
 
-        if (model.memory(3).equals("0"))
-            getView().showTable(MAINVIEW_MEMO, "invisible");
-        else
-            getView().showTable(MAINVIEW_MEMO, "visible");
+            if (model.memory(3).equals("0")) {
+                mainView.showTable(MAINVIEW_MEMO, "invisible");
+            } else {
+                mainView.showTable(MAINVIEW_MEMO, "visible");
+            }
+        });
     }
 }
