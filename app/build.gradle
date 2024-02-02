@@ -2,13 +2,18 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("../signing-keys/ancalculator/.keys/keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     namespace 'ru.narod.nod.ancalculator'
-    signingConfigs {
-        ancalc_sign {
-            storeFile file('/Users/neronovs/Downloads/keystore_calc.jks')
-        }
-    }
     compileSdk 34
     defaultConfig {
         applicationId "ru.narod.nod.ancalculator"
@@ -22,17 +27,30 @@ android {
     viewBinding {
         enabled = true
     }
+
+    signingConfigs {
+        // Keys are kept on git@gitlab.com:neronovs/signing-keys.git
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
     buildTypes {
         debug {
             buildConfigField "String", "PROGRAM_NAME", '"AnCalc DEBUG"'
         }
         release {
+            signingConfig signingConfigs.release
             buildConfigField "String", "PROGRAM_NAME", '"AnCalculator :)"'
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility = '17'
         targetCompatibility = '17'
