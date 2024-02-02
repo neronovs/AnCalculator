@@ -3,12 +3,59 @@ package ru.narod.nod.ancalculator.privacy_policy
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_privacy_policy.*
 import ru.narod.nod.ancalculator.R
+import ru.narod.nod.ancalculator.databinding.FragmentPrivacyPolicyBinding
 
 class PrivacyPolicyFragment : Fragment() {
-    private val privacyPolicyText = """
-Sergei Neronov built the AnCalculator app as an Ad Supported app. This SERVICE is provided by Sergei Neronov at no cost and is intended for use as is.
+    private lateinit var menu: Menu
+
+    private var viewBinding: FragmentPrivacyPolicyBinding? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_privacy_policy, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewBinding = FragmentPrivacyPolicyBinding.bind(view)
+
+        activity?.title = getString(R.string.menu_privacy_policy_title)
+        setPrivacyPolicyText()
+    }
+
+    override fun onDestroy() {
+        menuHandling(false)
+        activity?.title = getString(R.string.app_name)
+        super.onDestroy()
+        viewBinding = null
+    }
+
+    fun setMenu(menu: Menu) {
+        this.menu = menu
+        menuHandling(true)
+    }
+
+    private fun menuHandling(showClose: Boolean) {
+        menu.run {
+            findItem(R.id.menuPrivacyPolicy).isVisible = !showClose
+            findItem(R.id.menuClose).isVisible = showClose
+        }
+    }
+
+    private fun setPrivacyPolicyText() {
+        viewBinding?.privacyText?.text = privacyPolicyText
+    }
+
+    companion object {
+        fun newInstance() = PrivacyPolicyFragment()
+
+        private const val privacyPolicyText = """
+Developer built the AnCalculator app as an Ad Supported app. This SERVICE is provided by the Developer at no cost and is intended for use as is.
 This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
 If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
 The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at AnCalculator unless otherwise defined in this Privacy Policy.
@@ -41,41 +88,6 @@ Contact Us
 If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at email: neronovsv@gmail.com.
 
 """
-    private lateinit var menu: Menu
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_privacy_policy, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        activity?.title = getString(R.string.menu_privacy_policy_title)
-        setPrivacyPolicyText()
-    }
-
-    override fun onDestroy() {
-        menuHandling(false)
-        activity?.title = getString(R.string.app_name)
-        super.onDestroy()
-    }
-
-    fun setMenu(menu: Menu) {
-        this.menu = menu
-        menuHandling(true)
-    }
-
-    private fun menuHandling(showClose: Boolean) {
-        menu.findItem(R.id.menuPrivacyPolicy).isVisible = !showClose
-        menu.findItem(R.id.menuClose).isVisible = showClose
-    }
-
-    private fun setPrivacyPolicyText() {
-        privacyText.text = privacyPolicyText
-    }
-
-    companion object {
-        fun newInstance() = PrivacyPolicyFragment()
     }
 
 }
