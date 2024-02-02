@@ -28,10 +28,7 @@ class MainPresenterImpl
         this.model = model;
     }
 
-    private Context context;
-
     MainPresenterImpl(Context context) {
-        this.context = context;
         SharedPreferences sharedPreferences =
                 context.getSharedPreferences(SHARED_NAME, Context.MODE_PRIVATE);
         if (model == null) {
@@ -42,91 +39,64 @@ class MainPresenterImpl
 
     @Override
     public void buttonPressed(int btn) {
-        switch (btn) {
-            case R.id.buttonMPlus:
-                model.memory(1);
-                break;
-            case R.id.buttonMMinus:
-                model.memory(2);
-                break;
-            case R.id.buttonMR:
-                if (model.getAction() == 0) {
-                    model.clearFirstField(true);
-                    model.setFirst(model.memory(3));
-                } else {
-                    model.clearFirstField(false);
-                    model.setSecond(model.memory(3));
-                }
-                break;
-            case R.id.buttonMC:
-                model.memory(4);
-                break;
-            case R.id.button0:
-                buttonNumberTreatment(0);
-                break;
-            case R.id.button1:
-                buttonNumberTreatment(1);
-                break;
-            case R.id.button2:
-                buttonNumberTreatment(2);
-                break;
-            case R.id.button3:
-                buttonNumberTreatment(3);
-                break;
-            case R.id.button4:
-                buttonNumberTreatment(4);
-                break;
-            case R.id.button5:
-                buttonNumberTreatment(5);
-                break;
-            case R.id.button6:
-                buttonNumberTreatment(6);
-                break;
-            case R.id.button7:
-                buttonNumberTreatment(7);
-                break;
-            case R.id.button8:
-                buttonNumberTreatment(8);
-                break;
-            case R.id.button9:
-                buttonNumberTreatment(9);
-                break;
-            case R.id.buttonDot:
-                buttonActionTreatment(101);
-                break;
-            case R.id.buttonPlus:
-                buttonActionTreatment(1);
-                break;
-            case R.id.buttonMinus:
-                buttonActionTreatment(2);
-                break;
-            case R.id.buttonMultiply:
-                buttonActionTreatment(3);
-                break;
-            case R.id.buttonDivide:
-                buttonActionTreatment(4);
-                break;
-            case R.id.buttonEqual:
-                buttonActionTreatment(5);
-                break;
-            case R.id.buttonBack:
-                buttonActionTreatment(6);
-                break;
-            case R.id.buttonReverse:
-                buttonActionTreatment(7);
-                break;
-            case R.id.buttonPercent:
-                buttonActionTreatment(8);
-                break;
-            case R.id.buttonSQRT:
-                buttonActionTreatment(9);
-                break;
-            case R.id.buttonPow:
-                buttonActionTreatment(10);
-                break;
-            case R.id.buttonC:
-                model.clear();
-                break;
+        if (btn == R.id.buttonMPlus) {
+            model.memory(1);
+        } else if (btn == R.id.buttonMMinus) {
+            model.memory(2);
+        } else if (btn == R.id.buttonMR) {
+            if (model.getAction() == 0) {
+                model.clearFirstField(true);
+                model.setFirst(model.memory(3));
+            } else {
+                model.clearFirstField(false);
+                model.setSecond(model.memory(3));
+            }
+        } else if (btn == R.id.buttonMC) {
+            model.memory(4);
+        } else if (btn == R.id.button0) {
+            buttonNumberTreatment(0);
+        } else if (btn == R.id.button1) {
+            buttonNumberTreatment(1);
+        } else if (btn == R.id.button2) {
+            buttonNumberTreatment(2);
+        } else if (btn == R.id.button3) {
+            buttonNumberTreatment(3);
+        } else if (btn == R.id.button4) {
+            buttonNumberTreatment(4);
+        } else if (btn == R.id.button5) {
+            buttonNumberTreatment(5);
+        } else if (btn == R.id.button6) {
+            buttonNumberTreatment(6);
+        } else if (btn == R.id.button7) {
+            buttonNumberTreatment(7);
+        } else if (btn == R.id.button8) {
+            buttonNumberTreatment(8);
+        } else if (btn == R.id.button9) {
+            buttonNumberTreatment(9);
+        } else if (btn == R.id.buttonDot) {
+            buttonActionTreatment(101);
+        } else if (btn == R.id.buttonPlus) {
+            buttonActionTreatment(1);
+        } else if (btn == R.id.buttonMinus) {
+            buttonActionTreatment(2);
+        } else if (btn == R.id.buttonMultiply) {
+            buttonActionTreatment(3);
+        } else if (btn == R.id.buttonDivide) {
+            buttonActionTreatment(4);
+        } else if (btn == R.id.buttonEqual) {
+            buttonActionTreatment(5);
+        } else if (btn == R.id.buttonBack) {
+            buttonActionTreatment(6);
+        } else if (btn == R.id.buttonReverse) {
+            buttonActionTreatment(7);
+        } else if (btn == R.id.buttonPercent) {
+            buttonActionTreatment(8);
+        } else if (btn == R.id.buttonSQRT) {
+            buttonActionTreatment(9);
+        } else if (btn == R.id.buttonPow) {
+            buttonActionTreatment(10);
+        } else if (btn == R.id.buttonC) {
+            model.clear();
         }
 
         showResult(model.getTableInfo());
@@ -186,10 +156,9 @@ class MainPresenterImpl
         }
 
         switch (num) {
-            case 1: //plus
-                model.setAction(1);
-                break;
-            case 2: //minus
+            case 1 -> //plus
+                    model.setAction(1);
+            case 2 -> { //minus
                 //region Minus
                 if (model.isCurrentFieldFirst()) {
                     if (model.getFirst().equals("0")) {
@@ -204,18 +173,15 @@ class MainPresenterImpl
                     } else
                         model.setAction(2);
                 }
-                //endregion
-                break;
-            case 3: //multiply
-                model.setAction(3);
-                break;
-            case 4: //divide
-                model.setAction(4);
-                break;
-            case 5: //equal
-                model.compute(true);
-                break;
-            case 6: //buttonBack
+            }
+            //endregion
+            case 3 -> //multiply
+                    model.setAction(3);
+            case 4 -> //divide
+                    model.setAction(4);
+            case 5 -> //equal
+                    model.compute(true);
+            case 6 -> { //buttonBack
                 //region Backword function
                 if (model.isCurrentFieldFirst()) {
                     if (model.getFirst().equals("") && model.getAction() != 0)
@@ -240,18 +206,16 @@ class MainPresenterImpl
                         model.setSecond("0");
                     }
                 }
-                //endregion
-                break;
-            case 7: //buttonReverse
-                //region Reverse function
+            }
+            //endregion
+            case 7 -> { //buttonReverse
+                //region ReveØrse function
                 if (model.isCurrentFieldFirst()) {
                     String tempStr = model.getFirst();
                     model.clearFirstField(true);
                     if (tempStr.charAt(0) == '-')
                         model.setFirst(tempStr.substring(1)); //change polarity to positive
                     else {
-//                        if (tempStr.charAt(0) == '0' && tempStr.length() > 1)
-//                            tempStr = tempStr.substring(1);
                         model.setFirst("-" + tempStr); //change polarity to negative
                     } //cannot be empty string
                 } else {
@@ -267,9 +231,9 @@ class MainPresenterImpl
                         model.setSecond("-"); //no symbols in 2nd string at all
                     }
                 }
-                //endregion
-                break;
-            case 8: //buttonPercent
+            }
+            //endregion
+            case 8 -> { //buttonPercent
                 //region Percentage function
                 if (model.isCurrentFieldFirst()) {
                     String tempStr = model.getFirst();
@@ -281,9 +245,9 @@ class MainPresenterImpl
                     if (tempStr.length() > 0)
                         model.setSecond(model.calculateWithParametres(tempStr, null, "%"));
                 }
-                //endregion
-                break;
-            case 9: //buttonSQRT
+            }
+            //endregion
+            case 9 -> { //buttonSQRT
                 //region Square root function
                 if (model.isCurrentFieldFirst()) {
                     String tempStr = model.getFirst();
@@ -295,9 +259,9 @@ class MainPresenterImpl
                     if (tempStr.length() > 0)
                         model.setSecond(model.calculateWithParametres(tempStr, "2", "SQRT"));
                 }
-                //endregion
-                break;
-            case 10: //buttonPow
+            }
+            //endregion
+            case 10 -> { //buttonPow
                 //region Power function
                 if (model.isCurrentFieldFirst()) {
                     String tempStr = model.getFirst();
@@ -309,11 +273,10 @@ class MainPresenterImpl
                     if (tempStr.length() > 0)
                         model.setSecond(model.calculateWithParametres(tempStr, "2", "POW"));
                 }
-                //endregion
-                break;
-            case 101: //dot
-                buttonNumberTreatment(101);
-                break;
+            }
+            //endregion
+            case 101 -> //dot
+                    buttonNumberTreatment(101);
         }
         showResult(model.getTableInfo());
     }
@@ -326,21 +289,11 @@ class MainPresenterImpl
 
         //1 - plus, 2 - minus, 3 - multiply, 4 - divide
         switch (model.getAction()) {
-            case 0:
-                getView().showTable(MAINVIEW_ACTION, "");
-                break;
-            case 1:
-                getView().showTable(MAINVIEW_ACTION, " + ");
-                break;
-            case 2:
-                getView().showTable(MAINVIEW_ACTION, " - ");
-                break;
-            case 3:
-                getView().showTable(MAINVIEW_ACTION, " × ");
-                break;
-            case 4:
-                getView().showTable(MAINVIEW_ACTION, " ÷ ");
-                break;
+            case 0 -> getView().showTable(MAINVIEW_ACTION, "");
+            case 1 -> getView().showTable(MAINVIEW_ACTION, " + ");
+            case 2 -> getView().showTable(MAINVIEW_ACTION, " - ");
+            case 3 -> getView().showTable(MAINVIEW_ACTION, " × ");
+            case 4 -> getView().showTable(MAINVIEW_ACTION, " ÷ ");
         }
 
         getView().showTable(MAINVIEW_SECONDNUMBER, model.getSecond());
