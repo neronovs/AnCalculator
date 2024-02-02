@@ -37,6 +37,9 @@ android {
         sourceCompatibility = '17'
         targetCompatibility = '17'
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -46,7 +49,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     //MVP lib
-    implementation 'com.hannesdorfmann.mosby3:mvp:3.0.4'
+    implementation 'com.hannesdorfmann.mosby3:mvp:3.1.1'
 
     //Animation lib
     implementation 'com.daimajia.androidanimations:library:2.4@aar'
@@ -60,7 +63,7 @@ dependencies {
     implementation 'me.grantland:autofittextview:0.2.1'
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.mockito:mockito-core:5.9.0'
+    testImplementation 'org.mockito:mockito-core:5.10.0'
     implementation('com.crashlytics.sdk.android:crashlytics-ndk:2.1.1@aar') {
         transitive = true
     }
