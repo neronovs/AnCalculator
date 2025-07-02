@@ -95,9 +95,11 @@ dependencies {
 
 def commitCount() {
     final def stdout = new ByteArrayOutputStream()
-    description = "git rev-list --full-history --all"
+    // The following 'description' variable is just a local string for the println.
+    // It does not set a description for any Gradle task.
+    def description = "git rev-list --full-history --all"
     println(description)
-    exec {
+    project.services.get(ExecOperations.class).exec {
         commandLine 'git', 'rev-list', '--full-history', '--all'
         standardOutput = stdout
     }
