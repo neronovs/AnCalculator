@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "140708081737",
+    "firebase_url": "https://ancalcproject.firebaseio.com",
+    "project_id": "ancalcproject",
+    "storage_bucket": "ancalcproject.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140708081737:android:702253ad3ff816b1",
+        "android_client_info": {
+          "package_name": "ru.narod.nod.ancalculator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140708081737-1p12nio0edhllv9oe0u0el06u783grq2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.narod.nod.ancalculator",
+            "certificate_hash": "edd21d6f4111c0a1fcb77df2de1a9b8853f3513c"
+          }
+        },
+        {
+          "client_id": "140708081737-t9iuav368m2fmp1t4kdts2at8b7fgmm6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq_VjJeAxT5zPmrscOyP8zE1AXP-2yESs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140708081737-t9iuav368m2fmp1t4kdts2at8b7fgmm6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

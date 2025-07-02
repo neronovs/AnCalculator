@@ -6,12 +6,14 @@
         android:id="@+id/menuPrivacyPolicy"
         android:icon="@drawable/privacy_policy_icon"
         android:title="@string/menu_privacy_policy_title"
+        app:iconTint="@color/White"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuClose"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
         android:title="@string/menu_close"
         android:visible="false"
+        app:iconTint="@color/White"
         app:showAsAction="ifRoom"
         tools:visible="true" />
 </menu>

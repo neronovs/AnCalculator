@@ -6,6 +6,24 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- Make ActionBar transparent -->
+        <item name="android:actionBarStyle">@style/TransparentActionBar</item>
+        <item name="actionBarStyle">@style/TransparentActionBar</item>
+
+        <!-- Style menu items -->
+        <item name="android:actionButtonStyle">@style/SemiTransparentActionButton</item>
+        <item name="actionButtonStyle">@style/SemiTransparentActionButton</item>
+
+    </style>
+
+    <style name="TransparentActionBar" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="background">@android:color/transparent</item>
+    </style>
+
+    <style name="SemiTransparentActionButton" parent="Widget.AppCompat.ActionButton">
+        <item name="android:background">@drawable/menu_item_selector</item>
     </style>
 
 </resources>
